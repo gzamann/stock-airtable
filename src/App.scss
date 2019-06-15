@@ -1,0 +1,44 @@
+*{
+  box-sizing: border-box;
+}
+.App {
+  background: #eee;
+  height: 100vh;
+  text-align: center;
+  display:grid;
+  grid-template-areas:
+  "cal profit"
+  "cal profit"
+  "cal chart"
+  "cal chart"
+  "cal options";
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: repeat(5,1fr);
+}
+.chart{
+  grid-area: chart;
+}
+.profit{
+  grid-area: profit;
+}
+.options{
+  grid-area: options;
+  align-self: center;
+  display: flex;
+}
+.cal{
+  grid-area: cal;
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  grid-template-rows: repeat(6,1fr);
+  
+  .wdays{
+    background: pink;
+  }
+  div{
+    border:1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

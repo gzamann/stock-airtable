@@ -1,7 +1,9 @@
-import React from 'react';
-import './App.css';
-import Airtable from 'airtable';
-import {Line} from 'react-chartjs-2';
+import React from 'react'
+import './App.scss'
+import Airtable from 'airtable'
+import {Line} from 'react-chartjs-2'
+import Cal from './components/Cal'
+import Options from './components/Options'
 
 const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg');
 
@@ -27,15 +29,13 @@ class App extends React.Component{
         this.setState({dates,prices});
         fetchNextPage();
         console.log(records);
-        console.log(this.state.dates);
-        console.log(this.state.prices);
       });
     }
     
     render(){
       return (
         <div className="App">
-        {
+        {/* {
           this.state.records.length > 0 ? (
             this.state.records.map((record, index) =>
             <div key={index}>
@@ -43,9 +43,12 @@ class App extends React.Component{
             </div>))
           :
           <p>loading...</p>
-        }
-
+        } */}
+        <Cal data={this.state.records} base={base}/>
+        <div className="chart">
         <Chart dates={this.state.dates} prices={this.state.prices} />
+        </div>
+        <Options />
         </div>
   );
 }
