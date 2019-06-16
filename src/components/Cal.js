@@ -5,41 +5,62 @@ import Airtable from 'airtable';
 const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg');
 
 function Cal(props){
-    const [value, setValue] = useState("");
-    function setVal(e){
-        setValue(e.target.value)
-    }
-    function addRecord(){
-        console.log(value)
-        base('stocks').create({
-            "Date": value,
-            "Price": 120
-          }, {typecast: true}, function(err, record) {
-            if (err) {
-              console.error(err);
-              return;
-            }
-            console.log(record.getId());
-          });
-    }
+
     return(
-        <div className="cal">
+            <div className="cal">
             <Weeks />
-        {
-            props.data.map((i)=>(
-                <Stock className="stockdate" price={i.fields['Price']} date={i.fields['Date']}/>
-            ))
+        {props.data.map((i)=>(
+                <Stock className="stockdate" 
+                price={i.fields['Price']} id={i.id} date={i.fields['Date']}/>
+                ))
         }
-        <input value={value} onChange={setVal} type="date"></input>
-        <button onClick={addRecord}>Add</button>
         </div>
     )
 }
 function Stock(props){
-    
+    const [value, setValue] = useState();
+    function setVal(e){
+        setValue(e.target.value)
+    }
+    function addRecord(){
+        console.log(props.id,value);
+        base('stocks').update(props.id, {
+            "Price": parseFloat(value),
+          }, function(err) {
+            if (err) {
+              console.error(err.message);
+              return;
+            }
+          });
+    }
+    function deleteRecord(){
+        base('stocks').replace(props.id, {
+          }, function(err, record) {
+            if (err) {
+              console.error(err.message);
+              return;
+            }
+          });
+    }
     return(
-        <div className={props.stockdate}>
-            {props.price}
+        <div className={props.className}>
+            <span>
+                {props.date}
+            </span>
+            <span className="stprice">
+            {(props.price == undefined)?
+            <i className="btnadd" onClick={addRecord}>
+                <i className="icon ion-ios-add-circle"></i>
+            </i>
+            :
+            <span>{props.price}</span>
+            }
+            </span>
+            <span>
+            <i className="btndel" onClick={deleteRecord}>
+                <i className="icon ion-ios-close-circle-outline"></i>
+            </i>
+            </span>
         </div>
     )
 }

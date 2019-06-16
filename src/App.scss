@@ -1,44 +1,173 @@
-*{
+@import url('https://fonts.googleapis.com/css?family=Hammersmith+One&display=swap');
+
+* {
   box-sizing: border-box;
 }
+
 .App {
-  background: #eee;
+  font-family: 'Hammersmith One', sans-serif;
   height: 100vh;
+  color: #eee;
   text-align: center;
-  display:grid;
+  display: grid;
   grid-template-areas:
-  "cal profit"
-  "cal profit"
-  "cal chart"
-  "cal chart"
-  "cal options";
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: repeat(5,1fr);
+    "cal profit"
+    "cal profit"
+    "cal chart"
+    "cal options"
+    "cal options";
+  grid-template-columns: 4fr 2fr;
+  grid-template-rows: repeat(5, 1fr);
 }
-.chart{
+
+.chart {
   grid-area: chart;
 }
-.profit{
+
+.profit {
   grid-area: profit;
+  align-self: center;
+  letter-spacing: 1px;
 }
-.options{
+
+.options {
   grid-area: options;
   align-self: center;
-  display: flex;
-}
-.cal{
-  grid-area: cal;
   display: grid;
-  grid-template-columns: repeat(7,1fr);
-  grid-template-rows: repeat(6,1fr);
-  
-  .wdays{
-    background: pink;
+  grid-template-areas:
+    "bd sd"
+    "stocknum add";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, 1fr);
+  letter-spacing: 1px;
+
+  .icon {
+    font-size: 1.8em;
+    margin: 0 0.4em;
   }
-  div{
-    border:1px solid;
+
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #8482DE;
+
+    &:focus {
+      background: #6F9CEB;
+    }
+  }
+
+  div {
+    align-self: flex-end;
+  }
+
+  div:first-of-type {
+    grid-area: bd;
+  }
+
+  div:nth-of-type(2) {
+    grid-area: sd;
+  }
+
+  div:nth-of-type(3) {
+    grid-area: stocknum;
+  }
+
+  div:last-of-type {
+    grid-area: add;
+  }
+
+  input {
+    padding: 0em 1em;
+    max-width: 6em;
+  }
+}
+
+.cal {
+  grid-area: cal;
+  margin: 2em;
+  border: 1px solid;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr repeat(5, 2fr);
+
+  .wdays {
+    color: #eee;
+    background: linear-gradient(to bottom, #6F9CEB, #8482DE);
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  .stockdate {
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-left: 0;
+    border-top: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 2fr 1fr;
+    grid-template-areas:
+      "date price"
+      "delete delete";
+
+    .stprice {
+      color: aquamarine;
+    }
+
+    &:nth-of-type(7n) {
+      border-right: 0;
+    }
+
+    span {
+      align-self: center;
+    }
+
+    & span:first-of-type {
+      grid-area: date;
+      font-size: 1.4em;
+    }
+
+    & span:nth-of-type(2) {
+      grid-area: price;
+    }
+
+    & span:last-of-type {
+      grid-area: delete;
+      place-content: stretch;
+    }
+
+    &:hover {
+      border-radius: 0.2em;
+      background: #e5e5e5;
+      color: #272D2D;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 1px 1px 2px 0 #8482DE, -2px -2px 2px 0 #8482DE;
+      transform: scale(1.2);
+
+      .stprice {
+        color: #1DA958;
+      }
+    }
+
+    .icon {
+      font-size: 1.4em;
+      color: #272D2D;
+    }
+  }
+}
+
+.btndel {
+  border: 0;
+}
+
+
+@media screen and (max-width:980px) {
+  .App {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "profit"
+      "chart"
+      "cal"
+      "options";
   }
 }

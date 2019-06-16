@@ -3,6 +3,7 @@ import './App.scss'
 import Airtable from 'airtable'
 import {Line} from 'react-chartjs-2'
 import Cal from './components/Cal'
+import Profit from './components/Profit'
 import Options from './components/Options'
 
 const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg');
@@ -13,7 +14,7 @@ class App extends React.Component{
     this.state = {
       records: [],
       dates:[],
-      prices:[]
+      prices:[],
     };
   }
   
@@ -35,16 +36,8 @@ class App extends React.Component{
     render(){
       return (
         <div className="App">
-        {/* {
-          this.state.records.length > 0 ? (
-            this.state.records.map((record, index) =>
-            <div key={index}>
-              <span>{record.fields['Date']} : {record.fields['Price']}</span>
-            </div>))
-          :
-          <p>loading...</p>
-        } */}
         <Cal data={this.state.records} base={base}/>
+        <Profit/>
         <div className="chart">
         <Chart dates={this.state.dates} prices={this.state.prices} />
         </div>
@@ -60,7 +53,7 @@ function Chart(props){
     datasets: [
       {
         label: 'stock price',
-        fill: false,
+        fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
