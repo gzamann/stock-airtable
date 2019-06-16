@@ -1,19 +1,23 @@
 import React from 'react';
 import {useState} from 'react';
-import Airtable from 'airtable';
-
-const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg');
 
 function Cal(props){
+    function addRec(id, value,index){
+        props.addNewRec(id,value,index);
+    }
+    function delRec(id,index){
+        props.delRecord(id,index);
+    }
 
     return(
             <div className="cal">
             <Weeks />
-        {props.data.map((i)=>(
-                <Stock className="stockdate" 
+        {props.data.map((i, index)=>(
+            <Stock key={index} i={index} addR={addRec} delRecord={delRec} 
+                className="stockdate" 
                 price={i.fields['Price']} id={i.id} date={i.fields['Date']}/>
                 ))
-        }
+            }
         </div>
     )
 }
@@ -23,24 +27,11 @@ function Stock(props){
         setValue(e.target.value)
     }
     function addRecord(){
-        console.log(props.id,value);
-        base('stocks').update(props.id, {
-            "Price": parseFloat(value),
-          }, function(err) {
-            if (err) {
-              console.error(err.message);
-              return;
-            }
-          });
+        props.addR(props.id,value,props.i);
+        setValue("");
     }
     function deleteRecord(){
-        base('stocks').replace(props.id, {
-          }, function(err, record) {
-            if (err) {
-              console.error(err.message);
-              return;
-            }
-          });
+        props.delRecord(props.id,props.i);
     }
     return(
         <div className={props.className}>
@@ -49,17 +40,26 @@ function Stock(props){
             </span>
             <span className="stprice">
             {(props.price == undefined)?
+            <React.Fragment>
+            <input maxLength="3" value={value} onChange={setVal}/>
+            <br/>
             <i className="btnadd" onClick={addRecord}>
                 <i className="icon ion-ios-add-circle"></i>
             </i>
+            </React.Fragment>
             :
             <span>{props.price}</span>
             }
             </span>
             <span>
+            {
+            (props.price !== undefined)?
             <i className="btndel" onClick={deleteRecord}>
                 <i className="icon ion-ios-close-circle-outline"></i>
             </i>
+            :
+            <i></i>
+            }
             </span>
         </div>
     )
@@ -67,13 +67,13 @@ function Stock(props){
 function Weeks(){
     return(
         <React.Fragment>
+            <div className="wdays">Sunday</div>
             <div className="wdays">Monday</div>
             <div className="wdays">Tuesday</div>
             <div className="wdays">Wednesday</div>
             <div className="wdays">Thursday</div>
             <div className="wdays">Friday</div>
             <div className="wdays">Saturday</div>
-            <div className="wdays">Sunday</div>
         </React.Fragment>
     )
 }

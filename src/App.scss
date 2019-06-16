@@ -28,6 +28,13 @@
   grid-area: profit;
   align-self: center;
   letter-spacing: 1px;
+
+  .hasprofit{
+    color: #1DA958;
+  }
+  .haslose{
+    color:#D91E36;
+  }
 }
 
 .options {
@@ -47,11 +54,13 @@
   }
 
   input {
+    color: #eee;
     background: transparent;
     border: none;
     border-bottom: 1px solid #8482DE;
 
     &:focus {
+      color: black;
       background: #6F9CEB;
     }
   }
@@ -92,6 +101,7 @@
 
   .wdays {
     color: #eee;
+    letter-spacing: 1px;
     background: linear-gradient(to bottom, #6F9CEB, #8482DE);
     font-weight: bold;
     display: flex;
@@ -112,6 +122,13 @@
 
     .stprice {
       color: aquamarine;
+
+      input{
+        color: #eee;
+        background: #272D2D;
+        border: none;
+        max-width: 1.8em;
+      }
     }
 
     &:nth-of-type(7n) {

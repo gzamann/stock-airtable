@@ -1,10 +1,10 @@
 import React from 'react';
 import {useState} from 'react';
 
-function Options(){
+function Options(props){
     const [bd, setBd] = useState("");
     const [sd, setSd] = useState("");
-    const [stocknum, setStocknum] = useState("");
+    const [stocknum, setStocknum] = useState("1");
 
     function Stocknum(e){
         setStocknum(e.target.value);
@@ -16,8 +16,33 @@ function Options(){
         setSd(e.target.value);
     }
     function checkProfit(){
-        console.log("Check the max profit");
+        if(sd>bd){
+            let maxProf;
+            let buyPrice;
+            let sellPrice;
+            function chk(){props.data.forEach((r)=>
+        {
+            if(r.fields.Date==bd){
+                console.log(bd,r.fields.Price);
+                buyPrice = r.fields.Price
+            }else if(r.fields.Date==sd){
+                console.log(sd,r.fields.Price)
+                sellPrice = r.fields.Price;
+            }
+        })}
+        chk();
+        maxProf = (sellPrice *stocknum) - (buyPrice * stocknum);
+        console.log("Check the max profit",maxProf);
+        setBd("");
+        setSd("");
+        setStocknum("1");
+        props.getProfit(maxProf);
     }
+    else{
+        let maxProf="sell date can not be before buy date";
+        props.getProfit(maxProf);
+    }
+}
     return(
         <div className="options">
             <div>
@@ -33,7 +58,7 @@ function Options(){
             <div>
                 <p>How many?</p>
                 <i className="icon ion-ios-cart"/>
-                <input value={stocknum} onChange={Stocknum}/>
+                <input value={stocknum}  onChange={Stocknum}/>
             </div>
             <div>
                 <i className="icon ion-ios-calculator" onClick={checkProfit}></i>

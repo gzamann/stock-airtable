@@ -15,7 +15,43 @@ class App extends React.Component{
       records: [],
       dates:[],
       prices:[],
+      maxProfit: '',
+      gridCol : '0',
     };
+    this.getMaxProfit = this.getMaxProfit.bind(this);
+    this.addRecord = this.addRecord.bind(this);
+    this.delRecord = this.delRecord.bind(this);
+  }
+  addRecord(id,value,index){
+    let updateRec = this.state.records;
+    console.log("from app:",id,value,index)
+    updateRec[index].fields.Price = value;
+    base('stocks').update(id, {
+            "Price": parseFloat(value),
+          }, function(err) {
+                if (err) {
+              console.error(err.message);
+              return;
+            }
+          });
+    this.setState({records:updateRec});
+  }
+  delRecord(id,index){
+    let updateRec = this.state.records;
+    updateRec[index].fields.Price = undefined;
+    base('stocks').replace(id, {
+          }, function(err, record) {
+            if (err) {
+              console.error(err.message);
+              return;
+            }
+        });
+    this.setState({records:updateRec})
+  }
+  getMaxProfit(i){
+    console.log("got ",i)
+    let maxProfit = i;
+    this.setState({maxProfit})
   }
   
   componentDidMount(){
@@ -25,23 +61,36 @@ class App extends React.Component{
         this.setState({
           records
         });
-        let dates = records.map((e)=>e.fields['Date']);
-        let prices = records.map((e)=> e.fields['Price']);
+        let dates = records.map((r)=>{
+          if(r.fields['Price']!=undefined)
+          return r.fields['Date']
+      }
+        )
+        let prices = records.map((r)=> {
+          if(r.fields['Price']!=undefined)
+            return r.fields['Price']
+          })
+
         this.setState({dates,prices});
         fetchNextPage();
         console.log(records);
       });
+
+    let date = new Date()
+    let day = new Date(date.getFullYear(),date.getMonth(),1);
+    console.log(day.getDay());
+    this.setState({gridCol:day.getDay()})
     }
     
     render(){
       return (
         <div className="App">
-        <Cal data={this.state.records} base={base}/>
-        <Profit/>
+        <Cal data={this.state.records} base={base} delRecord={this.delRecord} addNewRec={this.addRecord} gridCol={this.state.gridCol}/>
+        <Profit profit={this.state.maxProfit}/>
         <div className="chart">
         <Chart dates={this.state.dates} prices={this.state.prices} />
         </div>
-        <Options />
+        <Options getProfit={this.getMaxProfit} data={this.state.records} />
         </div>
   );
 }
