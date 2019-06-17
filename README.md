@@ -5,7 +5,7 @@ The layout is based on CSS-Grid.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![screenshot]: (./screen1.JPG)
+![screenshot](./screen1.JPG)
 
 ## Available Scripts
 
