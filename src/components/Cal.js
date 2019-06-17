@@ -1,7 +1,7 @@
-import React from 'react';
-import {useState} from 'react';
+import React from 'react'
+import {useState} from 'react'
 
-function Cal(props){
+export default function Cal(props){
     function addRec(id, value,index){
         props.addNewRec(id,value,index);
     }
@@ -16,13 +16,15 @@ function Cal(props){
             <Stock key={index} i={index} addR={addRec} delRecord={delRec} 
                 className="stockdate" 
                 price={i.fields['Price']} id={i.id} date={i.fields['Date']}/>
-                ))
-            }
+        ))}
         </div>
     )
 }
+
 function Stock(props){
+
     const [value, setValue] = useState();
+
     function setVal(e){
         setValue(e.target.value)
     }
@@ -33,13 +35,14 @@ function Stock(props){
     function deleteRecord(){
         props.delRecord(props.id,props.i);
     }
+
     return(
         <div className={props.className}>
             <span>
                 {props.date}
             </span>
             <span className="stprice">
-            {(props.price == undefined)?
+            {(props.price === undefined)?
             <React.Fragment>
             <input maxLength="3" value={value} onChange={setVal}/>
             <br/>
@@ -64,6 +67,7 @@ function Stock(props){
         </div>
     )
 }
+
 function Weeks(){
     return(
         <React.Fragment>
@@ -77,4 +81,3 @@ function Weeks(){
         </React.Fragment>
     )
 }
-export default Cal;

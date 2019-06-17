@@ -6,9 +6,9 @@ import Cal from './components/Cal'
 import Profit from './components/Profit'
 import Options from './components/Options'
 
-const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg');
+const base = new Airtable({apiKey: 'keyCQeHBrRMkb8kGg'}).base('appIEjO1d0RcTFHPg')
 
-class App extends React.Component{
+export default class App extends React.Component{
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,7 @@ class App extends React.Component{
       dates:[],
       prices:[],
       maxProfit: '',
-      gridCol : '0',
+      // gridCol : '0',
     };
     this.getMaxProfit = this.getMaxProfit.bind(this);
     this.addRecord = this.addRecord.bind(this);
@@ -62,12 +62,12 @@ class App extends React.Component{
           records
         });
         let dates = records.map((r)=>{
-          if(r.fields['Price']!=undefined)
+          if(r.fields['Price']!==undefined)
           return r.fields['Date']
       }
         )
         let prices = records.map((r)=> {
-          if(r.fields['Price']!=undefined)
+          if(r.fields['Price']!==undefined)
             return r.fields['Price']
           })
 
@@ -76,16 +76,17 @@ class App extends React.Component{
         console.log(records);
       });
 
-    let date = new Date()
-    let day = new Date(date.getFullYear(),date.getMonth(),1);
-    console.log(day.getDay());
-    this.setState({gridCol:day.getDay()})
+    // let date = new Date()
+    // let day = new Date(date.getFullYear(),date.getMonth(),1);
+    // console.log(day.getDay());
+    // this.setState({gridCol:day.getDay()})
     }
     
     render(){
       return (
         <div className="App">
-        <Cal data={this.state.records} base={base} delRecord={this.delRecord} addNewRec={this.addRecord} gridCol={this.state.gridCol}/>
+        <Cal data={this.state.records} base={base} delRecord={this.delRecord}
+         addNewRec={this.addRecord}/>
         <Profit profit={this.state.maxProfit}/>
         <div className="chart">
         <Chart dates={this.state.dates} prices={this.state.prices} />
@@ -103,22 +104,15 @@ function Chart(props){
       {
         label: 'stock price',
         fill: true,
-        lineTension: 0.1,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
-        borderCapStyle: 'butt',
-        borderDash: [],
-        borderDashOffset: 0.0,
-        borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(75,192,192,1)',
-        pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-        pointHoverBorderColor: 'rgba(220,220,220,1)',
-        pointHoverBorderWidth: 2,
+        lineTension: 0.5,
         pointRadius: 1,
         pointHitRadius: 10,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBackgroundColor: '#fff',
+        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
         data: props.prices
       }
     ]
@@ -127,5 +121,3 @@ function Chart(props){
     <Line data={data}/>
   )
 }
-
-export default App;

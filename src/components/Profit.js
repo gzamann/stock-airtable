@@ -1,15 +1,16 @@
-import React from 'react';
-import {useState} from 'react';
-import {useEffect} from 'react';
+import React from 'react'
+import {useState} from 'react'
+import {useEffect} from 'react'
 
-function Profit(props){
+export default function Profit(props){
     const [classN, setClassN] = useState('hasprofit')
-    
+
     useEffect(() => {
         if (parseFloat(props.profit)<0){
                 setClassN("haslose")
             }
-        })
+    },[props.profit])
+
     return(
         <div className="profit">
             <h2>Max Profit</h2>
@@ -21,5 +22,3 @@ function Profit(props){
         </div>
     )
 }
-
-export default Profit

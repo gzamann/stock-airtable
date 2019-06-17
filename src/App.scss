@@ -29,11 +29,12 @@
   align-self: center;
   letter-spacing: 1px;
 
-  .hasprofit{
+  .hasprofit {
     color: #1DA958;
   }
-  .haslose{
-    color:#D91E36;
+
+  .haslose {
+    color: #D91E36;
   }
 }
 
@@ -123,7 +124,7 @@
     .stprice {
       color: aquamarine;
 
-      input{
+      input {
         color: #eee;
         background: #272D2D;
         border: none;
@@ -173,10 +174,17 @@
   }
 }
 
-.btndel {
-  border: 0;
+.btnadd {
+  .icon:hover {
+    color: #1DA958;
+  }
 }
 
+.btndel {
+  .icon:hover {
+    color: #D91E36;
+  }
+}
 
 @media screen and (max-width:980px) {
   .App {
