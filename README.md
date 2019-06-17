@@ -1,9 +1,11 @@
-This app will fetch Stock prices by date from corresponding Airtable. Prices can be added or deleted. You can use the profit-calculator to check maximum profit. And the stock trends are visible on the line chart.
+# 📈
+
+This app will fetch Stock prices by date from a Airtable. Prices can be added or deleted. You can use the profit-calculator to check maximum profit. And the stock trends are visible on the line chart.
 The layout is based on CSS-Grid.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-![screenshot]: screen1.JPG
+![screenshot]: (./screen1.JPG)
 
 ## Available Scripts
 
