@@ -51,7 +51,7 @@ function Stock(props){
             </i>
             </React.Fragment>
             :
-            <span>{props.price}</span>
+            <span>${props.price}</span>
             }
             </span>
             <span>

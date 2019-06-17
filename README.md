@@ -1,4 +1,9 @@
+This app will fetch Stock prices by date from corresponding Airtable. Prices can be added or deleted. You can use the profit-calculator to check maximum profit. And the stock trends are visible on the line chart.
+The layout is based on CSS-Grid.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+![screenshot]: screen1.JPG
 
 ## Available Scripts
 
@@ -40,30 +45,3 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-"# stock-airtable" 
